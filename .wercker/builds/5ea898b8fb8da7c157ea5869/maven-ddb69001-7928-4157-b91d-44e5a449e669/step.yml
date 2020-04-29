@@ -1,0 +1,38 @@
+name: maven
+version: 1.3.9
+summary: Execute Maven for Java projects.
+tags:
+  - java
+  - maven
+  - build
+properties:
+- name: pom
+  type: string
+  required: false
+- name: settings
+  type: string
+  required: false
+- name: security_settings
+  type: string
+  required: false
+- name: goals
+  type: string
+  required: true
+- name: profiles
+  type: string
+  required: false
+- name: maven_opts
+  type: string
+  required: false
+- name: debug
+  type: string
+  required: false
+- name: version
+  type: string
+  required: false
+- name: cache_repo
+  type: string
+  required: false
+- name: sudo_user
+  type: string
+  require: false
