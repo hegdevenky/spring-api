@@ -1,6 +1,7 @@
 package edu.uncc.domoapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -8,7 +9,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "accounts")
 @NamedQuery(name = "Account.getAll", query = "select acc from Account as acc order by acc.dateCreated")
-public class Account {
+public class Account extends RepresentationModel<Account> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

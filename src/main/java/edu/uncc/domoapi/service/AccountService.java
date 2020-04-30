@@ -28,8 +28,8 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public Account getAccountByAccNo(String accNo){
-        return accountDAO.getAccountByAccNo(accNo);
+    public Account getAccountByAccNo(String accNum){
+        return accountDAO.getAccountByAccNo(accNum);
     }
 
     @Override

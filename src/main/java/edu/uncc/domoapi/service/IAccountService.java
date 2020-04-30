@@ -9,7 +9,7 @@ public interface IAccountService {
 
     Account getAccountById(Integer id);
 
-    Account getAccountByAccNo(String accNo);
+    Account getAccountByAccNo(String accNum);
 
     List<Account> getAllAccounts();
 }

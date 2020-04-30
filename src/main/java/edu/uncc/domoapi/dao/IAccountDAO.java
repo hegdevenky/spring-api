@@ -12,7 +12,7 @@ public interface IAccountDAO {
     Account getAccountById(Integer id);
 
     // method to get acc by acc no
-    Account getAccountByAccNo(String accNo);
+    Account getAccountByAccNo(String accNum);
 
     // method to get all accs
     List<Account> getAllAccounts();

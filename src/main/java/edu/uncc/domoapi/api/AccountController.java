@@ -4,7 +4,9 @@ import com.sun.xml.bind.v2.TODO;
 import edu.uncc.domoapi.entity.Account;
 import edu.uncc.domoapi.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,37 +32,38 @@ public class AccountController {
     @PostMapping("/account")
     public EntityModel<Account> registerAccount(@RequestBody Account account){
         account = accountService.registerAccount(account);
-//        if (account == null)
             return new EntityModel<>(account, linkTo(methodOn(AccountController.class).registerAccount(account)).withSelfRel());
     }
-    // get account by account number
-    @GetMapping("/account/{accNum}")
-    public EntityModel<Account> getAccountByAccNum(@PathVariable("accNum") int accNum){
-        Account account = accountService.getAccountByAccNo(String.valueOf(accNum));
-        EntityModel<Account> response = new EntityModel<>(account, linkTo(methodOn(AccountController.class).getAccountByAccNum(accNum)).withSelfRel());
-        return response;
+
+    @GetMapping(value = "/account", produces = {"application/json"})
+    public EntityModel<Account> getAccountByAccNum(@RequestParam(required = true) final String accNum){
+        Logger.getAnonymousLogger().info("Acc Num"+accNum);
+        Account account = accountService.getAccountByAccNo(accNum);
+        Link selfLink = linkTo(methodOn(AccountController.class).getAccountByAccNum(accNum)).withSelfRel();
+        account.add(selfLink);
+        return new EntityModel<Account>(account);
     }
 
-    // get account by id
-    @GetMapping("/accounts/{id}")
-    public EntityModel<Account> getAccountById(@PathVariable("id") int id){
+    @GetMapping(value = "/account/{id}")
+    public EntityModel<Account> getAccountById(@PathVariable final int id){
+        Logger.getAnonymousLogger().info("id-"+id);
         Account account = accountService.getAccountById(id);
-        EntityModel<Account> response = new EntityModel<>(account, linkTo(methodOn(AccountController.class).getAccountById(id)).withSelfRel());
-        return response;
+        Link selfLink = linkTo(AccountController.class).slash(id).withSelfRel();
+        account.add(selfLink);
+        return new EntityModel<Account>(account);
     }
 
-    //TODO: Fix this
-    public EntityModel<List<Account>> getAllAccounts(){
-        List<Account> accountList = accountService.getAllAccounts();
-        Logger.getAnonymousLogger().info(accountList.toString());
-        EntityModel<List<Account>> response = new EntityModel<>(accountList, linkTo(methodOn(AccountController.class).getAllAccounts()).withSelfRel());
-        return response;
-    }
     // get all accounts
     @GetMapping("/accounts")
-    public ResponseEntity<List<Account>> getAllAccountsRes(){
+    public CollectionModel<Account> getAllAccountsRes(){
         List<Account> accountList = accountService.getAllAccounts();
-        return new ResponseEntity<List<Account>>(accountList, HttpStatus.OK);
+        for (Account account: accountList){
+            int id = account.getId();
+            Link selfLink = linkTo(AccountController.class).slash(id).withSelfRel();
+            account.add(selfLink);
+        }
+        Link link = linkTo(AccountController.class).withSelfRel();
+        return new CollectionModel<>(accountList, link);
     }
 }
 

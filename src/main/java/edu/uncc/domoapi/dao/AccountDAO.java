@@ -34,8 +34,13 @@ public class AccountDAO implements IAccountDAO {
     }
     // method to get acc by acc no
     @Override
-    public Account getAccountByAccNo(String accNo){
-        return entityManager.find(Account.class, accNo);
+    public Account getAccountByAccNo(String accNum){
+        Logger.getAnonymousLogger().info("Acc Num"+accNum);
+       if (accountExists(accNum)){
+           String jpql = "select acc from Account as acc WHERE acc.accNum = ?1";
+           return (Account) entityManager.createQuery(jpql).setParameter(1,accNum).getResultList().get(0);
+       }
+       return null;
     }
     // method to get all accs
     @Override
