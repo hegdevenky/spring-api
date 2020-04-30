@@ -14,7 +14,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/ddapi/sys")
+@RequestMapping("/dd-api/sys")
 public class SystemController {
 
     @GetMapping
