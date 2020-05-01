@@ -17,7 +17,7 @@ import java.util.Map;
 @RequestMapping("/dd-api/sys")
 public class SystemController {
 
-    @GetMapping
+    @GetMapping("/healthCheck")
     public EntityModel<Map<String,String>> healthCheck(){
         Map<String, String> resMap = new HashMap<>();
         resMap.put("healthy", "true");
