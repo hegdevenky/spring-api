@@ -14,4 +14,4 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-- [Endpoints](https://gitlab.com/test-applications1/spring-api/-/blob/master/spring-api.postman_collection.json)
+- [API Documentation](https://documenter.getpostman.com/view/7740755/SzmZcLSb?version=latest)
