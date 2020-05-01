@@ -3,7 +3,11 @@ package edu.uncc.domoapi.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Column;
 import java.time.LocalDate;
 
 @Entity
@@ -11,17 +15,13 @@ import java.time.LocalDate;
 @NamedQuery(name = "Account.getAll", query = "select acc from Account as acc order by acc.dateCreated")
 public class Account extends RepresentationModel<Account> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="account_id")
-    private Integer id;
-
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Id
     @Column(name = "acc_no", nullable = false)
     private String accNum;
 
@@ -48,9 +48,8 @@ public class Account extends RepresentationModel<Account> {
         this.dateCreated = dateCreated;
     }
 
-    public Account(int id, String firstName, String lastName, String accNum, String accType, boolean isActive, String bankName, int routingNo, LocalDate dateCreated) {
+    public Account(String firstName, String lastName, String accNum, String accType, boolean isActive, String bankName, int routingNo, LocalDate dateCreated) {
 
-        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.accNum = accNum;
@@ -62,13 +61,6 @@ public class Account extends RepresentationModel<Account> {
     }
 
     public Account() {
-    }
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -130,8 +122,7 @@ public class Account extends RepresentationModel<Account> {
     @Override
     public String toString() {
         return "Account{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", accNo='" + accNum + '\'' +
                 ", accType='" + accType + '\'' +

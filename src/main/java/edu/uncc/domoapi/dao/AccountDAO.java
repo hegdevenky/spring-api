@@ -27,11 +27,6 @@ public class AccountDAO implements IAccountDAO {
         }
         return null;
     }
-    // method to get acc by id
-    @Override
-    public Account getAccountById(Integer id){
-        return entityManager.find(Account.class, id);
-    }
     // method to get acc by acc no
     @Override
     public Account getAccountByAccNo(String accNum){

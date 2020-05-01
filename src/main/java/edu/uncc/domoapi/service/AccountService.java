@@ -22,10 +22,6 @@ public class AccountService implements IAccountService {
         return accountDAO.registerAccount(account);
     }
 
-    @Override
-    public Account getAccountById(Integer id) {
-        return accountDAO.getAccountById(id);
-    }
 
     @Override
     public Account getAccountByAccNo(String accNum){

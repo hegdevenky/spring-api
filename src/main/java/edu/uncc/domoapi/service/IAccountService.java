@@ -7,8 +7,6 @@ import java.util.List;
 public interface IAccountService {
     Account registerAccount(Account account);
 
-    Account getAccountById(Integer id);
-
     Account getAccountByAccNo(String accNum);
 
     List<Account> getAllAccounts();

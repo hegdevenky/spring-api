@@ -8,9 +8,6 @@ public interface IAccountDAO {
     // method to save acc
     Account registerAccount(Account account);
 
-    // method to get acc by id
-    Account getAccountById(Integer id);
-
     // method to get acc by acc no
     Account getAccountByAccNo(String accNum);
 

@@ -44,22 +44,12 @@ public class AccountController {
         return new EntityModel<Account>(account);
     }
 
-    @GetMapping(value = "/account/{id}")
-    public EntityModel<Account> getAccountById(@PathVariable final int id){
-        Logger.getAnonymousLogger().info("id-"+id);
-        Account account = accountService.getAccountById(id);
-        Link selfLink = linkTo(AccountController.class).slash(id).withSelfRel();
-        account.add(selfLink);
-        return new EntityModel<Account>(account);
-    }
-
     // get all accounts
     @GetMapping("/accounts")
     public CollectionModel<Account> getAllAccountsRes(){
         List<Account> accountList = accountService.getAllAccounts();
         for (Account account: accountList){
-            int id = account.getId();
-            Link selfLink = linkTo(AccountController.class).slash(id).withSelfRel();
+            Link selfLink = linkTo(methodOn(AccountController.class).getAccountByAccNum(account.getAccNum())).withSelfRel();
             account.add(selfLink);
         }
         Link link = linkTo(AccountController.class).withSelfRel();
