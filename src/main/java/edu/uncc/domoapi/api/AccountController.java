@@ -32,7 +32,7 @@ public class AccountController {
     @PostMapping("/account")
     public EntityModel<Account> registerAccount(@RequestBody Account account){
         account = accountService.registerAccount(account);
-            return new EntityModel<>(account, linkTo(methodOn(AccountController.class).registerAccount(account)).withSelfRel());
+            return new EntityModel<>(account, linkTo(methodOn(AccountController.class).getAccountByAccNum(account.getAccNum())).withSelfRel());
     }
 
     @GetMapping(value = "/account", produces = {"application/json"})
